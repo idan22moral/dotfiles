@@ -1,0 +1,15 @@
+[user]
+	name = Idan Moral
+	email = idan22moral@gmail.com
+[credential]
+	helper = store
+[log]
+	abbrevCommit = true
+	follow = true
+	decorate = false
+[alias]
+	lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
+[diff]
+	mnemonicPrefix = true
+[init]
+	defaultBranch = main
