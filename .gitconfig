@@ -1,3 +1,6 @@
+[core]
+	eol = lf
+	autocrlf = false
 [user]
 	name = Idan Moral
 	email = idan22moral@gmail.com
@@ -9,6 +12,34 @@
 	decorate = false
 [alias]
 	lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
+	lgfp = log --first-parent --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
+	pf = push --force-with-lease
+
+	mnf = merge --no-ff
+	mnfo = "!git mnf origin/$1"
+
+	# pattern-matching merge with no fast-forward
+	mnfp = "!f(){\
+		if [ '' == \"$1\" ]; then\
+			echo branch pattern must be provided;\
+			exit 1;\
+		fi;\
+		print_matches(){ git branch --list $1*; };\
+		list_matches(){ git branch --list $1* --format '%(refname:short)'; };\
+		branches=$(list_matches $1);\
+		count_branches=$(echo $branches | awk '{n=split($0, array)} END{print n}');\
+		if test $count_branches -eq 0; then\
+			echo no matching branch found for pattern $1;\
+			exit 1;\
+		fi;\
+		if test $count_branches -gt 1; then\
+			echo multiple branches found matching pattern $1:;\
+			print_matches $1;\
+			echo please be more specific with your branch pattern.;\
+			exit 1;\
+		fi;\
+		git merge --no-ff origin/$branches;\
+	}; f"
 [diff]
 	mnemonicPrefix = true
 [init]
