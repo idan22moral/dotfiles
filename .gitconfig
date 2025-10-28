@@ -12,12 +12,16 @@
 	follow = true
 	decorate = false
 [alias]
+	cur = branch --show-current
 	lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
 	lgfp = log --first-parent --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
 	pf = push --force-with-lease
 	sp = stash pop
+	sall = stash --include-untracked
 	co = checkout
+	cp = cherry-pick
 	remerge = rebase --rebase-merges=rebase-cousins
+	br = branch --sort -committerdate
 
 	mnf = merge --no-ff
 	mnfo = "!git mnf origin/$1"
@@ -45,6 +49,7 @@
 		git merge --no-ff origin/$branches;\
 	}; f"
 
+	mnm = mnf origin/master
 	rbm = rebase origin/master
 	rbi = rebase -i
 
